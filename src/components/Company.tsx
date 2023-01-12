@@ -17,6 +17,7 @@ const Company = () => {
           <th>Название компании</th>
           <th>Кол-во сотрудников</th>
           <th>Адрес</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

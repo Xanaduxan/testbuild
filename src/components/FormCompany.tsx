@@ -23,12 +23,13 @@ const FormCompany = () => {
 
     dispatch(
       addCompany({
-        id: companies[companies.length - 1]?.id + 1,
+        id: Number(companies[companies.length - 1]?.id) + 1,
         company,
         count: 0,
         address,
       })
     );
+
     setAddress('');
     setCompany('');
   };

@@ -34,8 +34,25 @@ const companySlice = createSlice({
           : company
       );
     },
+    removeCompany: (state, action) => {
+      state.companies = state.companies.filter(
+        (company) => company.id !== action.payload
+      );
+    },
+    updateCompany: (state, action) => {
+      state.companies = state.companies.map((company) =>
+        company.id === action.payload.id
+          ? {
+              ...company,
+              company: action.payload.company,
+              address: action.payload.address,
+            }
+          : company
+      );
+    },
   },
 });
 
 export default companySlice.reducer;
-export const { addCompany, selectCompany } = companySlice.actions;
+export const { addCompany, selectCompany, removeCompany, updateCompany } =
+  companySlice.actions;
