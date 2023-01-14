@@ -8,13 +8,13 @@ import FormEmployee from './FormEmployee';
 const CompanyRow = ({
   company,
 
-  firmId,
-  setFirmId,
+  firmIds,
+  setFirmIds,
 }: {
   company: Company;
 
-  firmId: Array<number>;
-  setFirmId: Dispatch<SetStateAction<Array<number>>>;
+  firmIds: Array<number>;
+  setFirmIds: Dispatch<SetStateAction<Array<number>>>;
 }) => {
   const [chosen, setChosen] = useState(false);
   const [show, setShow] = useState(false);
@@ -38,7 +38,7 @@ const CompanyRow = ({
     setChosen((prevChose) => !prevChose);
     setShow((prev) => !prev);
     setEdit(false);
-    setFirmId((prev) =>
+    setFirmIds((prev) =>
       prev.includes(company.id)
         ? prev.filter((ind) => ind !== company.id)
         : [...prev, company.id]

@@ -5,15 +5,15 @@ import EmployeeRow from './EmployeeRow';
 import { Employee as IEmployee } from '../features/employee/types/state';
 
 const Employee = ({
-  firmId,
-  setFirmId,
+  firmIds,
+  setFirmIds,
 }: {
-  firmId: Array<number>;
-  setFirmId: Dispatch<SetStateAction<Array<number>>>;
+  firmIds: Array<number>;
+  setFirmIds: Dispatch<SetStateAction<Array<number>>>;
 }) => {
   const { employees } = useSelector((state: RootState) => state.employees);
   const sortEmployees = employees.filter((employee: IEmployee) =>
-    firmId.includes(employee.companyId)
+    firmIds.includes(employee.companyId)
   );
 
   return (

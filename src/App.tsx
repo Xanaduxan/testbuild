@@ -6,14 +6,14 @@ import Employee from './components/Employee';
 import FormCompany from './components/FormCompany';
 
 function App() {
-  const [firmId, setFirmId] = useState<number[]>([]);
+  const [firmIds, setFirmIds] = useState<number[]>([]);
   return (
     <>
       <h1>Список сотрудников</h1>
       <FormCompany />
       <div className="table-container">
-        <Company firmId={firmId} setFirmId={setFirmId} />
-        <Employee firmId={firmId} setFirmId={setFirmId} />
+        <Company firmIds={firmIds} setFirmIds={setFirmIds} />
+        <Employee firmIds={firmIds} setFirmIds={setFirmIds} />
       </div>
     </>
   );

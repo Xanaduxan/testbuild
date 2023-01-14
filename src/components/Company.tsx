@@ -5,11 +5,11 @@ import { RootState } from '../store';
 import CompanyRow from './CompanyRow';
 
 const Company = ({
-  firmId,
-  setFirmId,
+  firmIds,
+  setFirmIds,
 }: {
-  firmId: Array<number>;
-  setFirmId: Dispatch<SetStateAction<Array<number>>>;
+  firmIds: Array<number>;
+  setFirmIds: Dispatch<SetStateAction<Array<number>>>;
 }) => {
   const { companies } = useSelector((state: RootState) => state.companies);
 
@@ -30,7 +30,11 @@ const Company = ({
       </thead>
       <tbody>
         {companies.map((company) => (
-          <CompanyRow company={company} firmId={firmId} setFirmId={setFirmId} />
+          <CompanyRow
+            company={company}
+            firmIds={firmIds}
+            setFirmIds={setFirmIds}
+          />
         ))}
       </tbody>
     </table>
