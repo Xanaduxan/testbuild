@@ -43,7 +43,7 @@ const FormEmployee = ({
     );
 
     dispatch(addCountCompany({ id: companyId }));
-
+    setAddForm((prev) => !prev);
     setSurname('');
     setName('');
     setJob('');

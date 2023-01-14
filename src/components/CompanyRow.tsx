@@ -7,14 +7,12 @@ import FormEmployee from './FormEmployee';
 
 const CompanyRow = ({
   company,
-  showEmployee,
-  setShowEmployee,
+
   firmId,
   setFirmId,
 }: {
   company: Company;
-  showEmployee: boolean;
-  setShowEmployee: (callback: (showEmployee: boolean) => boolean) => void;
+
   firmId: Array<number>;
   setFirmId: Dispatch<SetStateAction<Array<number>>>;
 }) => {
@@ -39,7 +37,6 @@ const CompanyRow = ({
   const selectOneCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosen((prevChose) => !prevChose);
     setShow((prev) => !prev);
-    setShowEmployee((pr) => !pr);
     setFirmId((prev) =>
       prev.includes(company.id)
         ? prev.filter((ind) => ind !== company.id)
@@ -49,6 +46,8 @@ const CompanyRow = ({
   const deleteCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeCompany(company.id));
     dispatch(removeCompanyEmployees(company.id));
+    setChosen((prev) => !prev);
+    setShow((prev) => !show);
   };
   const editCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
     setEdit((prev) => !prev);
