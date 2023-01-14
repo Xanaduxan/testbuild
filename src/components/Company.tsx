@@ -1,9 +1,20 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../store';
 import CompanyRow from './CompanyRow';
 
-const Company = () => {
+const Company = ({
+  showEmployee,
+  setShowEmployee,
+  firmId,
+  setFirmId,
+}: {
+  showEmployee: boolean;
+  setShowEmployee: (callback: (showEmployee: boolean) => boolean) => void;
+  firmId: Array<number>;
+  setFirmId: Dispatch<SetStateAction<Array<number>>>;
+}) => {
   const { companies } = useSelector((state: RootState) => state.companies);
 
   return (
@@ -18,11 +29,18 @@ const Company = () => {
           <th>Кол-во сотрудников</th>
           <th>Адрес</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {companies.map((company) => (
-          <CompanyRow company={company} />
+          <CompanyRow
+            company={company}
+            showEmployee={showEmployee}
+            setShowEmployee={setShowEmployee}
+            firmId={firmId}
+            setFirmId={setFirmId}
+          />
         ))}
       </tbody>
     </table>

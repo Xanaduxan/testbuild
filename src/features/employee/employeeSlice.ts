@@ -19,6 +19,30 @@ const initialState: State = {
       job: 'директор',
       companyId: 2,
     },
+    {
+      check: false,
+      id: 3,
+      surname: 'Макаров',
+      name: 'Иван',
+      job: 'директор',
+      companyId: 2,
+    },
+    {
+      check: false,
+      id: 4,
+      surname: 'Иванов',
+      name: 'Иван',
+      job: 'директор',
+      companyId: 2,
+    },
+    {
+      check: false,
+      id: 5,
+      surname: 'Ульянов',
+      name: 'Иван',
+      job: 'директор',
+      companyId: 2,
+    },
   ],
 };
 
@@ -27,17 +51,33 @@ const employeeSlice = createSlice({
   initialState,
   reducers: {
     initEmployees: (state, action) => {
-      state.employees.filter(
+      state.employees = state.employees.filter(
         (employee) => employee.companyId === action.payload
       );
     },
     addEmployee: (state, action) => {
       state.employees.push(action.payload);
     },
-    selectEmployee: (state, action) => {
+
+    removeEmployee: (state, action) => {
+      state.employees = state.employees.filter(
+        (employee) => employee.id !== action.payload
+      );
+    },
+    removeCompanyEmployees: (state, action) => {
+      state.employees = state.employees.filter(
+        (employee) => employee.companyId !== action.payload
+      );
+    },
+    updateEmployee: (state, action) => {
       state.employees = state.employees.map((employee) =>
-        employee.id === action.payload
-          ? { ...employee, check: !employee.check }
+        employee.id === action.payload.id
+          ? {
+              ...employee,
+              surname: action.payload.surname,
+              name: action.payload.name,
+              job: action.payload.job,
+            }
           : employee
       );
     },
@@ -45,5 +85,11 @@ const employeeSlice = createSlice({
 });
 
 export default employeeSlice.reducer;
-export const { initEmployees, addEmployee, selectEmployee } =
-  employeeSlice.actions;
+export const {
+  initEmployees,
+  addEmployee,
+
+  removeEmployee,
+  removeCompanyEmployees,
+  updateEmployee,
+} = employeeSlice.actions;

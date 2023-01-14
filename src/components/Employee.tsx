@@ -1,8 +1,21 @@
 import { useSelector } from 'react-redux';
+import { Dispatch, SetStateAction } from 'react';
 import { RootState } from '../store';
+import EmployeeRow from './EmployeeRow';
+import { Employee as IEmployee } from '../features/employee/types/state';
 
-const Employee = () => {
+const Employee = ({
+  firmId,
+  setFirmId,
+}: {
+  firmId: Array<number>;
+  setFirmId: Dispatch<SetStateAction<Array<number>>>;
+}) => {
   const { employees } = useSelector((state: RootState) => state.employees);
+  const sortEmployyes = employees.filter((employee: IEmployee) =>
+    firmId.includes(employee.companyId)
+  );
+
   return (
     <table>
       <thead>
@@ -17,15 +30,8 @@ const Employee = () => {
         </tr>
       </thead>
       <tbody>
-        {employees.map((employee) => (
-          <tr key={employee.id}>
-            <td>
-              <input type="checkbox" />
-            </td>
-            <td>{employee.surname}</td>
-            <td>{employee.name}</td>
-            <td>{employee.job}</td>
-          </tr>
+        {sortEmployyes.map((employee: IEmployee) => (
+          <EmployeeRow employee={employee} />
         ))}
       </tbody>
     </table>

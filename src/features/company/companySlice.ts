@@ -7,14 +7,35 @@ const initialState: State = {
       check: false,
       id: 1,
       company: 'ООО Бриллиант',
-      count: 10,
+      count: 1,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
       id: 2,
       company: 'ООО Алмаз',
-      count: 10,
+      count: 4,
+      address: 'г. Москва, ул. Ленина, д. 1',
+    },
+    {
+      check: false,
+      id: 3,
+      company: 'ООО Сапфир',
+      count: 0,
+      address: 'г. Москва, ул. Ленина, д. 1',
+    },
+    {
+      check: false,
+      id: 4,
+      company: 'ООО Агат',
+      count: 0,
+      address: 'г. Москва, ул. Ленина, д. 1',
+    },
+    {
+      check: false,
+      id: 5,
+      company: 'ООО Стекляшка',
+      count: 0,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
   ],
@@ -27,13 +48,7 @@ const companySlice = createSlice({
     addCompany: (state, action) => {
       state.companies.push(action.payload);
     },
-    selectCompany: (state, action) => {
-      state.companies = state.companies.map((company) =>
-        company.id === action.payload
-          ? { ...company, check: !company.check }
-          : company
-      );
-    },
+
     removeCompany: (state, action) => {
       state.companies = state.companies.filter(
         (company) => company.id !== action.payload
@@ -50,9 +65,35 @@ const companySlice = createSlice({
           : company
       );
     },
+    addCountCompany: (state, action) => {
+      state.companies = state.companies.map((company) =>
+        company.id === action.payload.id
+          ? {
+              ...company,
+              count: company.count + 1,
+            }
+          : company
+      );
+    },
+    removeCountCompany: (state, action) => {
+      state.companies = state.companies.map((company) =>
+        company.id === action.payload.id
+          ? {
+              ...company,
+              count: company.count - 1,
+            }
+          : company
+      );
+    },
   },
 });
 
 export default companySlice.reducer;
-export const { addCompany, selectCompany, removeCompany, updateCompany } =
-  companySlice.actions;
+export const {
+  addCompany,
+
+  removeCompany,
+  updateCompany,
+  addCountCompany,
+  removeCountCompany,
+} = companySlice.actions;
