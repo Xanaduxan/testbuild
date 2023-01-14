@@ -12,29 +12,36 @@ const Employee = ({
   setFirmId: Dispatch<SetStateAction<Array<number>>>;
 }) => {
   const { employees } = useSelector((state: RootState) => state.employees);
-  const sortEmployyes = employees.filter((employee: IEmployee) =>
+  const sortEmployees = employees.filter((employee: IEmployee) =>
     firmId.includes(employee.companyId)
   );
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Чекбокс
-            <input type="checkbox" />
-          </th>
-          <th>Фамилия</th>
-          <th>Имя</th>
-          <th>Должность</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortEmployyes.map((employee: IEmployee) => (
-          <EmployeeRow employee={employee} />
-        ))}
-      </tbody>
-    </table>
+    <>
+      {sortEmployees.length ? (
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Чекбокс
+                <input type="checkbox" />
+              </th>
+              <th>Фамилия</th>
+              <th>Имя</th>
+              <th>Должность</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortEmployees.map((employee: IEmployee) => (
+              <EmployeeRow employee={employee} />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 

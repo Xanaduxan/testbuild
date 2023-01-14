@@ -9,6 +9,7 @@ function App() {
   const [firmId, setFirmId] = useState<number[]>([]);
   return (
     <>
+      <h1>Список сотрудников</h1>
       <FormCompany />
       <div className="table-container">
         <Company firmId={firmId} setFirmId={setFirmId} />

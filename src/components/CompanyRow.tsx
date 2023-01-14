@@ -37,6 +37,7 @@ const CompanyRow = ({
   const selectOneCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosen((prevChose) => !prevChose);
     setShow((prev) => !prev);
+    setEdit(false);
     setFirmId((prev) =>
       prev.includes(company.id)
         ? prev.filter((ind) => ind !== company.id)
@@ -47,13 +48,30 @@ const CompanyRow = ({
     dispatch(removeCompany(company.id));
     dispatch(removeCompanyEmployees(company.id));
     setChosen((prev) => !prev);
-    setShow((prev) => !show);
+    setShow((prev) => !prev);
   };
+
   const editCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setEdit((prev) => !prev);
-  };
-  const saveCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(updateCompany({ id: company.id, address, company: companyName }));
+    if (companyName) {
+      dispatch(
+        updateCompany({ id: company.id, address, company: companyName })
+      );
+    }
+    if (address) {
+      dispatch(
+        updateCompany({ id: company.id, address, company: company.company })
+      );
+    } else {
+      dispatch(
+        updateCompany({
+          id: company.id,
+          address: company.address,
+          company: company.company,
+        })
+      );
+    }
+    setCompanyName(company.company);
+    setAddress(company.address);
     setEdit((prev) => !prev);
   };
   const addOneEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,16 +83,18 @@ const CompanyRow = ({
         <input type="checkbox" checked={chosen} onChange={selectOneCompany} />
       </td>
       <td>
-        {company.company}
-        {edit && (
+        {edit ? (
           <input value={companyName} onChange={handleChangeCompany} required />
+        ) : (
+          <>{company.company}</>
         )}
       </td>
       <td>{company.count}</td>
       <td>
-        {company.address}
-        {edit && (
+        {edit ? (
           <input value={address} onChange={handleChangeAddress} required />
+        ) : (
+          <>{company.address}</>
         )}
       </td>
       <td>
@@ -83,20 +103,24 @@ const CompanyRow = ({
             <button type="button" onClick={deleteCompany}>
               Удалить
             </button>
+
             <button type="button" onClick={editCompany}>
-              Редактировать
+              {edit ? 'Сохранить' : 'Редактировать'}
             </button>
-            <button type="button" onClick={saveCompany}>
-              Сохранить изменения
-            </button>
-            <button type="button" onClick={addOneEmployee}>
-              Добавить сотрудника
-            </button>
+            {addForm ? (
+              <button type="button" onClick={addOneEmployee}>
+                Не добавлять
+              </button>
+            ) : (
+              <button type="button" onClick={addOneEmployee}>
+                Добавить сотрудника
+              </button>
+            )}
           </>
         )}
       </td>
       <td>
-        {addForm && (
+        {addForm && chosen && (
           <FormEmployee
             companyId={company.id}
             addForm={addForm}

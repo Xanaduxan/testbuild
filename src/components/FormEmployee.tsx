@@ -51,9 +51,24 @@ const FormEmployee = ({
 
   return (
     <form onSubmit={handleAddEmployee}>
-      <input value={surname} onChange={handleChangeSurname} required />
-      <input value={name} onChange={handleChangeName} required />
-      <input value={job} onChange={handleChangeJob} required />
+      <input
+        value={surname}
+        placeholder="Фамилия"
+        onChange={handleChangeSurname}
+        required
+      />
+      <input
+        value={name}
+        placeholder="Имя"
+        onChange={handleChangeName}
+        required
+      />
+      <input
+        value={job}
+        placeholder="Должность"
+        onChange={handleChangeJob}
+        required
+      />
       <button type="submit">Добавить сотрудника</button>
     </form>
   );

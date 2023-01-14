@@ -36,8 +36,18 @@ const FormCompany = () => {
 
   return (
     <form onSubmit={handleAddCompany}>
-      <input value={company} onChange={handleChangeCompany} required />
-      <input value={address} onChange={handleChangeAddress} required />
+      <input
+        value={company}
+        placeholder="Компания"
+        onChange={handleChangeCompany}
+        required
+      />
+      <input
+        value={address}
+        placeholder="Адрес"
+        onChange={handleChangeAddress}
+        required
+      />
       <button type="submit">Добавить компанию</button>
     </form>
   );
