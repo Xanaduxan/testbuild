@@ -85,15 +85,20 @@ const companySlice = createSlice({
           : company
       );
     },
+    removeAllCompanies: (state, action) => {
+      state.companies = state.companies.filter(
+        (company) => !action.payload.includes(company.id)
+      );
+    },
   },
 });
 
 export default companySlice.reducer;
 export const {
   addCompany,
-
   removeCompany,
   updateCompany,
   addCountCompany,
   removeCountCompany,
+  removeAllCompanies,
 } = companySlice.actions;

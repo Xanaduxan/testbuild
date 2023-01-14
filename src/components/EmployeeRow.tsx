@@ -7,7 +7,15 @@ import {
 import { Employee } from '../features/employee/types/state';
 import { useAppDispatch } from '../store';
 
-const EmployeeRow = ({ employee }: { employee: Employee }) => {
+const EmployeeRow = ({
+  employee,
+  choose,
+  setChoose,
+}: {
+  employee: Employee;
+  choose: boolean;
+  setChoose: (callback: (chosen: boolean) => boolean) => void;
+}) => {
   const [chosenEmployee, setChosenEmployee] = useState(false);
   const [showEmployee, setShowEmployee] = useState(false);
   const [showEditEmployee, setShowEditEmployee] = useState(false);
@@ -89,11 +97,14 @@ const EmployeeRow = ({ employee }: { employee: Employee }) => {
     setShowEmployee((prev) => !prev);
   };
   return (
-    <tr key={employee.id} className={chosenEmployee ? 'selected' : ''}>
+    <tr
+      key={employee.id}
+      className={chosenEmployee || choose ? 'selected' : ''}
+    >
       <td>
         <input
           type="checkbox"
-          checked={chosenEmployee}
+          checked={chosenEmployee || choose}
           onChange={selectOneEmployee}
         />
       </td>

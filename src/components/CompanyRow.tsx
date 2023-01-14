@@ -1,25 +1,28 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { removeCompanyEmployees } from '../features/employee/employeeSlice';
 import { removeCompany, updateCompany } from '../features/company/companySlice';
-import { Company } from '../features/company/types/state';
+
 import { useAppDispatch } from '../store';
 import FormEmployee from './FormEmployee';
+import { Company } from '../features/company/types/state';
 
 const CompanyRow = ({
   company,
-
+  chose,
+  setChose,
   firmIds,
   setFirmIds,
 }: {
   company: Company;
-
+  chose: boolean;
+  setChose: (callback: (chosen: boolean) => boolean) => void;
   firmIds: Array<number>;
   setFirmIds: Dispatch<SetStateAction<Array<number>>>;
 }) => {
-  const [chosen, setChosen] = useState(false);
   const [show, setShow] = useState(false);
   const [addForm, setAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [chosen, setChosen] = useState(false);
   const [companyName, setCompanyName] = useState(company.company);
   const [address, setAddress] = useState(company.address);
   const handleChangeCompany = (
@@ -78,9 +81,13 @@ const CompanyRow = ({
     setAddForm((prev) => !prev);
   };
   return (
-    <tr key={company.id} className={chosen ? 'selected' : ''}>
+    <tr key={company.id} className={chosen || chose ? 'selected' : ''}>
       <td>
-        <input type="checkbox" checked={chosen} onChange={selectOneCompany} />
+        <input
+          type="checkbox"
+          checked={chosen || chose}
+          onChange={selectOneCompany}
+        />
       </td>
       <td>
         {edit ? (

@@ -69,6 +69,11 @@ const employeeSlice = createSlice({
         (employee) => employee.companyId !== action.payload
       );
     },
+    removeCompaniesEmployees: (state, action) => {
+      state.employees = state.employees.filter(
+        (employee) => !action.payload.includes(employee.companyId)
+      );
+    },
     updateEmployee: (state, action) => {
       state.employees = state.employees.map((employee) =>
         employee.id === action.payload.id
@@ -88,7 +93,7 @@ export default employeeSlice.reducer;
 export const {
   initEmployees,
   addEmployee,
-
+  removeCompaniesEmployees,
   removeEmployee,
   removeCompanyEmployees,
   updateEmployee,
