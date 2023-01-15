@@ -5,31 +5,31 @@ const initialState: State = {
   companies: [
     {
       check: false,
-      id: 1,
+      id: 0,
       company: 'ООО Бриллиант',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
-      id: 2,
+      id: 1,
       company: 'ООО Алмаз',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
-      id: 3,
+      id: 2,
       company: 'ООО Сапфир',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
-      id: 4,
+      id: 3,
       company: 'ООО Агат',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
-      id: 5,
+      id: 4,
       company: 'ООО Стекляшка',
       address: 'г. Москва, ул. Ленина, д. 1',
     },

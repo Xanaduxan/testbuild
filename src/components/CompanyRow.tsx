@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import employeeSlice, {
   removeAllCompanyEmployees,
 } from '../features/employee/employeeSlice';
@@ -63,28 +63,10 @@ const CompanyRow = ({
   };
 
   const editCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (companyName) {
-      dispatch(
-        updateCompany({ id: company.id, address, company: companyName })
-      );
-    }
-    if (address) {
-      dispatch(
-        updateCompany({ id: company.id, address, company: company.company })
-      );
-    } else {
-      dispatch(
-        updateCompany({
-          id: company.id,
-          address: company.address,
-          company: company.company,
-        })
-      );
-    }
-    setCompanyName(company.company);
-    setAddress(company.address);
+    dispatch(updateCompany({ id: company.id, address, company: companyName }));
     setEdit((prev) => !prev);
   };
+
   const addOneEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAddForm((prev) => !prev);
   };
@@ -140,7 +122,7 @@ const CompanyRow = ({
       <td>
         {addForm && chosen && (
           <FormEmployee
-            companyId={company.id}
+            companyIdOne={company.id}
             addForm={addForm}
             setAddForm={setAddForm}
           />

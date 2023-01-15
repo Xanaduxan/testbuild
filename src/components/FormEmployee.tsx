@@ -5,11 +5,11 @@ import { addEmployee } from '../features/employee/employeeSlice';
 import { RootState, useAppDispatch } from '../store';
 
 const FormEmployee = ({
-  companyId,
+  companyIdOne,
   addForm,
   setAddForm,
 }: {
-  companyId: number;
+  companyIdOne: number;
   addForm: boolean;
   setAddForm: (callback: (addForm: boolean) => boolean) => void;
 }) => {
@@ -34,13 +34,11 @@ const FormEmployee = ({
 
     dispatch(
       addEmployee({
-        id: !employees.length
-          ? 1
-          : Number(employees[employees.length - 1]?.id) + 1,
+        id: employees.length,
         surname,
         name,
         job,
-        companyId,
+        companyId: companyIdOne,
       })
     );
 
@@ -48,6 +46,7 @@ const FormEmployee = ({
     setSurname('');
     setName('');
     setJob('');
+    console.log(companyIdOne, 'hhhhh');
   };
 
   return (

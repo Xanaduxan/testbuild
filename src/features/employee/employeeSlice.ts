@@ -16,7 +16,7 @@ const initialState: State = {
       id: 2,
       surname: 'Петров',
       name: 'Иван',
-      job: 'директор',
+      job: 'дворник',
       companyId: 2,
     },
     {

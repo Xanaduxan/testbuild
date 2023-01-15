@@ -23,9 +23,7 @@ const FormCompany = () => {
 
     dispatch(
       addCompany({
-        id: !companies.length
-          ? 1
-          : Number(companies[companies.length]?.id - 1) + 1,
+        id: companies.length,
         company,
         address,
       })

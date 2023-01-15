@@ -29,7 +29,6 @@ const Company = ({
     dispatch(removeCompaniesEmployees(companiesIds));
   };
   const deleteSomeCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(firmIds);
     dispatch(removeSomeCompanies(firmIds));
     dispatch(removeCompaniesEmployees(firmIds));
   };
