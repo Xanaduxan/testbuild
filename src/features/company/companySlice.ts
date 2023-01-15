@@ -7,35 +7,30 @@ const initialState: State = {
       check: false,
       id: 1,
       company: 'ООО Бриллиант',
-      count: 1,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
       id: 2,
       company: 'ООО Алмаз',
-      count: 4,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
       id: 3,
       company: 'ООО Сапфир',
-      count: 0,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
       id: 4,
       company: 'ООО Агат',
-      count: 0,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
       check: false,
       id: 5,
       company: 'ООО Стекляшка',
-      count: 0,
       address: 'г. Москва, ул. Ленина, д. 1',
     },
   ],
@@ -65,46 +60,7 @@ const companySlice = createSlice({
           : company
       );
     },
-    addCountCompany: (state, action) => {
-      state.companies = state.companies.map((company) =>
-        company.id === action.payload.id
-          ? {
-              ...company,
-              count: company.count + 1,
-            }
-          : company
-      );
-    },
-    removeCountCompany: (state, action) => {
-      state.companies = state.companies.map((company) =>
-        company.id === action.payload.id
-          ? {
-              ...company,
-              count: company.count - 1,
-            }
-          : company
-      );
-    },
-    removeAllCountCompany: (state, action) => {
-      state.companies = state.companies.map((company) =>
-        action.payload.includes(company.id)
-          ? {
-              ...company,
-              count: 0,
-            }
-          : company
-      );
-    },
-    removeSomeCountCompany: (state, action) => {
-      state.companies = state.companies.map((company) =>
-        action.payload.includes(company.id)
-          ? {
-              ...company,
-              count: company.count - 1,
-            }
-          : company
-      );
-    },
+
     removeAllCompanies: (state, action) => {
       state.companies = state.companies.filter(
         (company) => !action.payload.includes(company.id)
@@ -114,13 +70,5 @@ const companySlice = createSlice({
 });
 
 export default companySlice.reducer;
-export const {
-  addCompany,
-  removeCompany,
-  updateCompany,
-  addCountCompany,
-  removeCountCompany,
-  removeAllCountCompany,
-  removeAllCompanies,
-  removeSomeCountCompany,
-} = companySlice.actions;
+export const { addCompany, removeCompany, updateCompany, removeAllCompanies } =
+  companySlice.actions;

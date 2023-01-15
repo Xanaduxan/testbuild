@@ -1,17 +1,11 @@
-import { useSelector } from 'react-redux';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { RootState, useAppDispatch } from '../store';
+import { useAppDispatch } from '../store';
 import EmployeeRow from './EmployeeRow';
 import { Employee as IEmployee } from '../features/employee/types/state';
 import {
   removeCompaniesEmployees,
   removeSomeCompanyEmployees,
 } from '../features/employee/employeeSlice';
-import {
-  removeAllCountCompany,
-  removeCountCompany,
-  removeSomeCountCompany,
-} from '../features/company/companySlice';
 
 const Employee = ({
   firmIds,
@@ -22,11 +16,11 @@ const Employee = ({
   setFirmIds: Dispatch<SetStateAction<Array<number>>>;
   employees: IEmployee[];
 }) => {
-  // const { employees } = useSelector((state: RootState) => state.employees);
   const sortEmployees = employees.filter((employee: IEmployee) =>
     firmIds.includes(employee.companyId)
   );
   const employeesIds = sortEmployees.map((emp) => emp.id);
+  const [restartChoose, setRestartChoose] = useState(false);
 
   const [choose, setChoose] = useState(false);
   const [worker, setWorker] = useState<number[]>([]);
@@ -36,18 +30,10 @@ const Employee = ({
   };
   const deleteAllEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeCompaniesEmployees(employeesIds));
-    dispatch(removeAllCountCompany(firmIds));
   };
   const deleteSomeEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const companyIdToRemoveCount = employees
-      .filter((el) => worker.includes(el.id))
-      .map((emp) => emp.companyId);
-    // console.log(companyIdToRemoveCount);
-    // for (let i = 0; i < companyIdToRemoveCount.length; i++) {
-    //   dispatch(removeCountCompany(companyIdToRemoveCount[i]));
-    // }
     dispatch(removeSomeCompanyEmployees(worker));
-    dispatch(removeSomeCountCompany(companyIdToRemoveCount));
+    setRestartChoose((prev) => !prev);
   };
 
   return (
@@ -83,6 +69,8 @@ const Employee = ({
                 setChoose={setChoose}
                 worker={worker}
                 setWorker={setWorker}
+                restartChoose={restartChoose}
+                setRestartChoose={setRestartChoose}
               />
             ))}
           </tbody>

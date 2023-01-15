@@ -25,7 +25,6 @@ const FormCompany = () => {
       addCompany({
         id: Number(companies[companies.length - 1]?.id) + 1,
         company,
-        count: 0,
         address,
       })
     );

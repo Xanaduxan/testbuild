@@ -2,7 +2,7 @@ export interface Company {
   check: boolean;
   id: number;
   company: string;
-  count: number;
+
   address: string;
 }
 

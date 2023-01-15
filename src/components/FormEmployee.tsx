@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { addCountCompany } from '../features/company/companySlice';
+
 import { addEmployee } from '../features/employee/employeeSlice';
 import { RootState, useAppDispatch } from '../store';
 
@@ -42,7 +42,7 @@ const FormEmployee = ({
       })
     );
 
-    dispatch(addCountCompany({ id: companyId }));
+    // dispatch(addCountCompany({ id: companyId }));
     setAddForm((prev) => !prev);
     setSurname('');
     setName('');

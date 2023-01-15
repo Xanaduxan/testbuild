@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { removeCountCompany } from '../features/company/companySlice';
+// import { removeCountCompany } from '../features/company/companySlice';
 import {
   removeEmployee,
   updateEmployee,
@@ -13,12 +13,16 @@ const EmployeeRow = ({
   setChoose,
   worker,
   setWorker,
+  restartChoose,
+  setRestartChoose,
 }: {
   employee: Employee;
   choose: boolean;
   setChoose: (callback: (chosen: boolean) => boolean) => void;
   worker: Array<number>;
   setWorker: Dispatch<SetStateAction<Array<number>>>;
+  restartChoose: boolean;
+  setRestartChoose: (callback: (chosen: boolean) => boolean) => void;
 }) => {
   const [chosenEmployee, setChosenEmployee] = useState(false);
   const [showEmployee, setShowEmployee] = useState(false);
@@ -26,7 +30,6 @@ const EmployeeRow = ({
   const [employeeSurname, setEmployeeSurname] = useState(employee.surname);
   const [employeeName, setEmployeeName] = useState(employee.name);
   const [employeeJob, setEmployeeJob] = useState(employee.job);
-  // const [worker, setWorker] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const selectOneEmployee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosenEmployee((prevChose) => !prevChose);
@@ -96,19 +99,18 @@ const EmployeeRow = ({
 
   const deleteEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeEmployee(employee.id));
-    dispatch(removeCountCompany({ id: employee.companyId }));
     setChosenEmployee((prev) => !prev);
     setShowEmployee((prev) => !prev);
   };
   return (
     <tr
       key={employee.id}
-      className={chosenEmployee || choose ? 'selected' : ''}
+      className={(chosenEmployee || choose) && !restartChoose ? 'selected' : ''}
     >
       <td>
         <input
           type="checkbox"
-          checked={chosenEmployee || choose}
+          checked={(chosenEmployee || choose) && !restartChoose}
           onChange={selectOneEmployee}
         />
       </td>
