@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import employeeSlice, {
   removeAllCompanyEmployees,
 } from '../features/employee/employeeSlice';
@@ -40,7 +40,6 @@ const CompanyRow = ({
   ): void => {
     setAddress(e.target.value);
   };
-
   const listOfEmployees = employees.filter(
     (emp) => emp.companyId === company.id
   );

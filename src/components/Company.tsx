@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { removeAllCompanies } from '../features/company/companySlice';
+import { removeSomeCompanies } from '../features/company/companySlice';
 import { removeCompaniesEmployees } from '../features/employee/employeeSlice';
 import { Employee } from '../features/employee/types/state';
 import { RootState, useAppDispatch } from '../store';
@@ -25,11 +25,12 @@ const Company = ({
     setShowDelete((prev) => !prev);
   };
   const deleteAllCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(removeAllCompanies(companiesIds));
+    dispatch(removeSomeCompanies(companiesIds));
     dispatch(removeCompaniesEmployees(companiesIds));
   };
   const deleteSomeCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(removeAllCompanies(firmIds));
+    console.log(firmIds);
+    dispatch(removeSomeCompanies(firmIds));
     dispatch(removeCompaniesEmployees(firmIds));
   };
 

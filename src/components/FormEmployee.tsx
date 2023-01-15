@@ -34,7 +34,9 @@ const FormEmployee = ({
 
     dispatch(
       addEmployee({
-        id: Number(employees[employees.length - 1]?.id) + 1,
+        id: !employees.length
+          ? 1
+          : Number(employees[employees.length - 1]?.id) + 1,
         surname,
         name,
         job,
@@ -42,7 +44,6 @@ const FormEmployee = ({
       })
     );
 
-    // dispatch(addCountCompany({ id: companyId }));
     setAddForm((prev) => !prev);
     setSurname('');
     setName('');

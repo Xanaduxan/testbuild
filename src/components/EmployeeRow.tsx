@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 // import { removeCountCompany } from '../features/company/companySlice';
 import {
   removeEmployee,
@@ -30,6 +30,13 @@ const EmployeeRow = ({
   const [employeeSurname, setEmployeeSurname] = useState(employee.surname);
   const [employeeName, setEmployeeName] = useState(employee.name);
   const [employeeJob, setEmployeeJob] = useState(employee.job);
+  useEffect(() => {
+    if (restartChoose) {
+      setChosenEmployee(() => false);
+      setChoose(() => false);
+      setShowEmployee(() => false);
+    }
+  }, [restartChoose]);
   const dispatch = useAppDispatch();
   const selectOneEmployee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosenEmployee((prevChose) => !prevChose);
@@ -39,6 +46,7 @@ const EmployeeRow = ({
         ? prev.filter((ind) => ind !== employee.id)
         : [...prev, employee.id]
     );
+    setRestartChoose(() => false);
   };
   const handleChangeSurname = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -101,16 +109,18 @@ const EmployeeRow = ({
     dispatch(removeEmployee(employee.id));
     setChosenEmployee((prev) => !prev);
     setShowEmployee((prev) => !prev);
+    setRestartChoose(() => false);
   };
+
   return (
     <tr
       key={employee.id}
-      className={(chosenEmployee || choose) && !restartChoose ? 'selected' : ''}
+      className={chosenEmployee || choose ? 'selected' : ''}
     >
-      <td>
+      <td key={`${employee.id}input`}>
         <input
           type="checkbox"
-          checked={(chosenEmployee || choose) && !restartChoose}
+          checked={chosenEmployee || choose}
           onChange={selectOneEmployee}
         />
       </td>

@@ -29,7 +29,8 @@ const Employee = ({
     setChoose((prev) => !prev);
   };
   const deleteAllEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(removeCompaniesEmployees(employeesIds));
+    dispatch(removeSomeCompanyEmployees(employeesIds));
+    setRestartChoose((prev) => !prev);
   };
   const deleteSomeEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeSomeCompanyEmployees(worker));
