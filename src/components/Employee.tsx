@@ -32,7 +32,6 @@ const Employee = ({
     setRestartChoose((prev) => !prev);
   };
   const deleteSomeEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(worker);
     dispatch(removeSomeCompanyEmployees(worker));
     setWorker(() => []);
     setRestartChoose((prev) => !prev);
