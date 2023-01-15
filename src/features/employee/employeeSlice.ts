@@ -5,7 +5,7 @@ const initialState: State = {
   employees: [
     {
       check: false,
-      id: 0,
+      id: 'СавельевПетр',
       surname: 'Савельев',
       name: 'Петр',
       job: 'директор',
@@ -13,15 +13,15 @@ const initialState: State = {
     },
     {
       check: false,
-      id: 1,
-      surname: 'Петров',
+      id: 'СидоровИван',
+      surname: 'Сидоров',
       name: 'Иван',
       job: 'директор',
       companyId: 'ООО Сапфир',
     },
     {
       check: false,
-      id: 2,
+      id: 'ПетровИван',
       surname: 'Петров',
       name: 'Иван',
       job: 'дворник',
@@ -29,7 +29,7 @@ const initialState: State = {
     },
     {
       check: false,
-      id: 3,
+      id: 'МакаровИван',
       surname: 'Макаров',
       name: 'Иван',
       job: 'директор',
@@ -37,7 +37,7 @@ const initialState: State = {
     },
     {
       check: false,
-      id: 4,
+      id: 'ИвановИван',
       surname: 'Иванов',
       name: 'Иван',
       job: 'директор',
@@ -45,11 +45,19 @@ const initialState: State = {
     },
     {
       check: false,
-      id: 5,
+      id: 'УльяновИван',
       surname: 'Ульянов',
       name: 'Иван',
       job: 'директор',
-      companyId: '',
+      companyId: 'ООО Бриллиант',
+    },
+    {
+      check: false,
+      id: 'БаранкинСтепан',
+      surname: 'Баранкин',
+      name: 'Степан',
+      job: 'директор',
+      companyId: 'ООО Алмаз',
     },
   ],
 };

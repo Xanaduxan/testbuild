@@ -19,8 +19,8 @@ const EmployeeRow = ({
   employee: Employee;
   choose: boolean;
   setChoose: (callback: (chosen: boolean) => boolean) => void;
-  worker: Array<number>;
-  setWorker: Dispatch<SetStateAction<Array<number>>>;
+  worker: Array<string>;
+  setWorker: Dispatch<SetStateAction<Array<string>>>;
   restartChoose: boolean;
   setRestartChoose: (callback: (chosen: boolean) => boolean) => void;
 }) => {

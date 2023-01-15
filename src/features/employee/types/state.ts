@@ -1,6 +1,6 @@
 export interface Employee {
   check: boolean;
-  id: number;
+  id: string;
   surname: string;
   name: string;
   job: string;

@@ -18,24 +18,26 @@ const Company = ({
   const { companies } = useSelector((state: RootState) => state.companies);
   const companiesIds = companies.map((comp) => comp.id);
   const [chose, setChose] = useState(false);
+  const [notAllCompanySelected, setNotAllCompanySelected] = useState(true);
   const [restartChooseCompany, setRestartChooseCompany] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const dispatch = useAppDispatch();
   const selectAllCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChose((prevChose) => !prevChose);
     setShowDelete((prev) => !prev);
-    setRestartChooseCompany(() => false);
+    setNotAllCompanySelected((prev) => !prev);
   };
   const deleteAllCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeSomeCompanies(companiesIds));
     dispatch(removeCompaniesEmployees(companiesIds));
     setRestartChooseCompany((prev) => !prev);
+    setChose((prevChose) => !prevChose);
   };
   const deleteSomeCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(firmIds);
     dispatch(removeSomeCompanies(firmIds));
     dispatch(removeCompaniesEmployees(firmIds));
-    setRestartChooseCompany(() => true);
+    setFirmIds(() => []);
+    setRestartChooseCompany((prev) => !prev);
   };
 
   return (
@@ -59,7 +61,9 @@ const Company = ({
             )}
           </th>
           <th>
-            <button onClick={deleteSomeCompanies}>Удалить выбранное</button>
+            {notAllCompanySelected && (
+              <button onClick={deleteSomeCompanies}>Удалить выбранное</button>
+            )}
           </th>
         </tr>
       </thead>

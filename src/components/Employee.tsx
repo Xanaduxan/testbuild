@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useAppDispatch } from '../store';
 import EmployeeRow from './EmployeeRow';
 import { Employee as IEmployee } from '../features/employee/types/state';
@@ -21,7 +21,7 @@ const Employee = ({
   const [restartChoose, setRestartChoose] = useState(false);
   const [notAllChoose, setNotAllChoose] = useState(true);
   const [choose, setChoose] = useState(false);
-  const [worker, setWorker] = useState<number[]>([]);
+  const [worker, setWorker] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const selectAllEmployees = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChoose((prev) => !prev);
@@ -32,7 +32,9 @@ const Employee = ({
     setRestartChoose((prev) => !prev);
   };
   const deleteSomeEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(worker);
     dispatch(removeSomeCompanyEmployees(worker));
+    setWorker(() => []);
     setRestartChoose((prev) => !prev);
   };
 

@@ -30,18 +30,10 @@ const FormEmployee = ({
   const handleChangeJob = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setJob(e.target.value);
   };
-  function uniqueId(len: number, employees: Employee[]): number {
-    const employeesIds = employees.map((employee) => employee.id);
-    if (!employeesIds.includes(len)) {
-      return len;
-    } else {
-      len += 1;
-      return uniqueId(len, employees);
-    }
-  }
+
   const handleAddEmployee = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newId = uniqueId(employees.length, employees);
+    const newId = surname + name + employees.length;
     dispatch(
       addEmployee({
         id: newId,

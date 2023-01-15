@@ -65,6 +65,7 @@ const CompanyRow = ({
         ? prev.filter((ind) => ind !== company.id)
         : [...prev, company.id]
     );
+    setRestartChooseCompany(() => false);
   };
   const deleteCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeCompany(company.id));

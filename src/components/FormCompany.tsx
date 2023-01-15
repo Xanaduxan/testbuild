@@ -22,10 +22,10 @@ const FormCompany = () => {
 
   const handleAddCompany = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const idCompany = company + companies.length;
     dispatch(
       addCompany({
-        id: company,
+        id: idCompany,
         company,
         address,
       })
