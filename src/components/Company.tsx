@@ -1,23 +1,22 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { removeAllCompanies } from '../features/company/companySlice';
-import {
-  removeCompaniesEmployees,
-  removeCompanyEmployees,
-} from '../features/employee/employeeSlice';
-
+import { removeCompaniesEmployees } from '../features/employee/employeeSlice';
+import { Employee } from '../features/employee/types/state';
 import { RootState, useAppDispatch } from '../store';
 import CompanyRow from './CompanyRow';
 
 const Company = ({
   firmIds,
   setFirmIds,
+  employees,
 }: {
   firmIds: Array<number>;
   setFirmIds: Dispatch<SetStateAction<Array<number>>>;
+  employees: Employee[];
 }) => {
   const { companies } = useSelector((state: RootState) => state.companies);
-  let companiesIds = companies.map((comp) => comp.id);
+  const companiesIds = companies.map((comp) => comp.id);
   const [chose, setChose] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const dispatch = useAppDispatch();
@@ -28,6 +27,10 @@ const Company = ({
   const deleteAllCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeAllCompanies(companiesIds));
     dispatch(removeCompaniesEmployees(companiesIds));
+  };
+  const deleteSomeCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(removeAllCompanies(firmIds));
+    dispatch(removeCompaniesEmployees(firmIds));
   };
 
   return (
@@ -50,7 +53,9 @@ const Company = ({
               <button onClick={deleteAllCompanies}>Удалить все</button>
             )}
           </th>
-          <th></th>
+          <th>
+            <button onClick={deleteSomeCompanies}>Удалить</button>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +66,7 @@ const Company = ({
             company={company}
             firmIds={firmIds}
             setFirmIds={setFirmIds}
+            employees={employees}
           />
         ))}
       </tbody>

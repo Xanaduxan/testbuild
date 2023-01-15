@@ -85,6 +85,26 @@ const companySlice = createSlice({
           : company
       );
     },
+    removeAllCountCompany: (state, action) => {
+      state.companies = state.companies.map((company) =>
+        action.payload.includes(company.id)
+          ? {
+              ...company,
+              count: 0,
+            }
+          : company
+      );
+    },
+    removeSomeCountCompany: (state, action) => {
+      state.companies = state.companies.map((company) =>
+        action.payload.includes(company.id)
+          ? {
+              ...company,
+              count: company.count - 1,
+            }
+          : company
+      );
+    },
     removeAllCompanies: (state, action) => {
       state.companies = state.companies.filter(
         (company) => !action.payload.includes(company.id)
@@ -100,5 +120,7 @@ export const {
   updateCompany,
   addCountCompany,
   removeCountCompany,
+  removeAllCountCompany,
   removeAllCompanies,
+  removeSomeCountCompany,
 } = companySlice.actions;

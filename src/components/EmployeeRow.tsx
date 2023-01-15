@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { removeCountCompany } from '../features/company/companySlice';
 import {
   removeEmployee,
@@ -11,10 +11,14 @@ const EmployeeRow = ({
   employee,
   choose,
   setChoose,
+  worker,
+  setWorker,
 }: {
   employee: Employee;
   choose: boolean;
   setChoose: (callback: (chosen: boolean) => boolean) => void;
+  worker: Array<number>;
+  setWorker: Dispatch<SetStateAction<Array<number>>>;
 }) => {
   const [chosenEmployee, setChosenEmployee] = useState(false);
   const [showEmployee, setShowEmployee] = useState(false);
@@ -22,7 +26,7 @@ const EmployeeRow = ({
   const [employeeSurname, setEmployeeSurname] = useState(employee.surname);
   const [employeeName, setEmployeeName] = useState(employee.name);
   const [employeeJob, setEmployeeJob] = useState(employee.job);
-  const [worker, setWorker] = useState<number[]>([]);
+  // const [worker, setWorker] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const selectOneEmployee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosenEmployee((prevChose) => !prevChose);

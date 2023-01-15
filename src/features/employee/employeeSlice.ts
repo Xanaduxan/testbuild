@@ -64,9 +64,14 @@ const employeeSlice = createSlice({
         (employee) => employee.id !== action.payload
       );
     },
-    removeCompanyEmployees: (state, action) => {
+    removeAllCompanyEmployees: (state, action) => {
       state.employees = state.employees.filter(
         (employee) => employee.companyId !== action.payload
+      );
+    },
+    removeSomeCompanyEmployees: (state, action) => {
+      state.employees = state.employees.filter(
+        (employee) => !action.payload.includes(employee.id)
       );
     },
     removeCompaniesEmployees: (state, action) => {
@@ -74,6 +79,7 @@ const employeeSlice = createSlice({
         (employee) => !action.payload.includes(employee.companyId)
       );
     },
+
     updateEmployee: (state, action) => {
       state.employees = state.employees.map((employee) =>
         employee.id === action.payload.id
@@ -95,6 +101,7 @@ export const {
   addEmployee,
   removeCompaniesEmployees,
   removeEmployee,
-  removeCompanyEmployees,
+  removeSomeCompanyEmployees,
+  removeAllCompanyEmployees,
   updateEmployee,
 } = employeeSlice.actions;

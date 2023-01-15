@@ -1,10 +1,13 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { removeCompanyEmployees } from '../features/employee/employeeSlice';
+import employeeSlice, {
+  removeAllCompanyEmployees,
+} from '../features/employee/employeeSlice';
 import { removeCompany, updateCompany } from '../features/company/companySlice';
 
 import { useAppDispatch } from '../store';
 import FormEmployee from './FormEmployee';
 import { Company } from '../features/company/types/state';
+import { Employee } from '../features/employee/types/state';
 
 const CompanyRow = ({
   company,
@@ -12,12 +15,14 @@ const CompanyRow = ({
   setChose,
   firmIds,
   setFirmIds,
+  employees,
 }: {
   company: Company;
   chose: boolean;
   setChose: (callback: (chosen: boolean) => boolean) => void;
   firmIds: Array<number>;
   setFirmIds: Dispatch<SetStateAction<Array<number>>>;
+  employees: Employee[];
 }) => {
   const [show, setShow] = useState(false);
   const [addForm, setAddForm] = useState(false);
@@ -36,6 +41,10 @@ const CompanyRow = ({
     setAddress(e.target.value);
   };
 
+  const listOfEmployees = employees.filter(
+    (emp) => emp.companyId === company.id
+  );
+
   const dispatch = useAppDispatch();
   const selectOneCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosen((prevChose) => !prevChose);
@@ -49,7 +58,7 @@ const CompanyRow = ({
   };
   const deleteCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeCompany(company.id));
-    dispatch(removeCompanyEmployees(company.id));
+    dispatch(removeAllCompanyEmployees(company.id));
     setChosen((prev) => !prev);
     setShow((prev) => !prev);
   };
@@ -80,6 +89,7 @@ const CompanyRow = ({
   const addOneEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAddForm((prev) => !prev);
   };
+
   return (
     <tr key={company.id} className={chosen || chose ? 'selected' : ''}>
       <td>
@@ -96,7 +106,9 @@ const CompanyRow = ({
           <>{company.company}</>
         )}
       </td>
-      <td>{company.count}</td>
+      <td>
+        <>{listOfEmployees.length}</>
+      </td>
       <td>
         {edit ? (
           <input value={address} onChange={handleChangeAddress} required />
