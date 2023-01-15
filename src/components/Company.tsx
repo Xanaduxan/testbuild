@@ -18,6 +18,7 @@ const Company = ({
   const { companies } = useSelector((state: RootState) => state.companies);
   const companiesIds = companies.map((comp) => comp.id);
   const [chose, setChose] = useState(false);
+  const [restartChooseCompany, setRestartChooseCompany] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const dispatch = useAppDispatch();
   const selectAllCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +28,12 @@ const Company = ({
   const deleteAllCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeSomeCompanies(companiesIds));
     dispatch(removeCompaniesEmployees(companiesIds));
+    setRestartChooseCompany((prev) => !prev);
   };
   const deleteSomeCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeSomeCompanies(firmIds));
     dispatch(removeCompaniesEmployees(firmIds));
+    setRestartChooseCompany((prev) => !prev);
   };
 
   return (
@@ -67,6 +70,8 @@ const Company = ({
             firmIds={firmIds}
             setFirmIds={setFirmIds}
             employees={employees}
+            restartChooseCompany={restartChooseCompany}
+            setRestartChooseCompany={setRestartChooseCompany}
           />
         ))}
       </tbody>

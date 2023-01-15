@@ -5,6 +5,14 @@ const initialState: State = {
   employees: [
     {
       check: false,
+      id: 0,
+      surname: 'Савельев',
+      name: 'Петр',
+      job: 'директор',
+      companyId: 0,
+    },
+    {
+      check: false,
       id: 1,
       surname: 'Петров',
       name: 'Иван',

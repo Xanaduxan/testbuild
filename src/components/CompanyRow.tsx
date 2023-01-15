@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import employeeSlice, {
   removeAllCompanyEmployees,
 } from '../features/employee/employeeSlice';
@@ -16,6 +16,8 @@ const CompanyRow = ({
   firmIds,
   setFirmIds,
   employees,
+  restartChooseCompany,
+  setRestartChooseCompany,
 }: {
   company: Company;
   chose: boolean;
@@ -23,6 +25,8 @@ const CompanyRow = ({
   firmIds: Array<number>;
   setFirmIds: Dispatch<SetStateAction<Array<number>>>;
   employees: Employee[];
+  restartChooseCompany: boolean;
+  setRestartChooseCompany: (callback: (chosen: boolean) => boolean) => void;
 }) => {
   const [show, setShow] = useState(false);
   const [addForm, setAddForm] = useState(false);
@@ -30,6 +34,13 @@ const CompanyRow = ({
   const [chosen, setChosen] = useState(false);
   const [companyName, setCompanyName] = useState(company.company);
   const [address, setAddress] = useState(company.address);
+  useEffect(() => {
+    if (restartChooseCompany) {
+      setShow(() => false);
+      setChosen(() => false);
+      setChose(() => false);
+    }
+  }, [restartChooseCompany]);
   const handleChangeCompany = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -48,7 +59,7 @@ const CompanyRow = ({
   const selectOneCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosen((prevChose) => !prevChose);
     setShow((prev) => !prev);
-    setEdit(false);
+
     setFirmIds((prev) =>
       prev.includes(company.id)
         ? prev.filter((ind) => ind !== company.id)
