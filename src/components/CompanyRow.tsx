@@ -22,8 +22,8 @@ const CompanyRow = ({
   company: Company;
   chose: boolean;
   setChose: (callback: (chosen: boolean) => boolean) => void;
-  firmIds: Array<number>;
-  setFirmIds: Dispatch<SetStateAction<Array<number>>>;
+  firmIds: Array<string>;
+  setFirmIds: Dispatch<SetStateAction<Array<string>>>;
   employees: Employee[];
   restartChooseCompany: boolean;
   setRestartChooseCompany: (callback: (chosen: boolean) => boolean) => void;
@@ -131,7 +131,7 @@ const CompanyRow = ({
         )}
       </td>
       <td>
-        {addForm && chosen && (
+        {addForm && (
           <FormEmployee
             companyIdOne={company.id}
             addForm={addForm}

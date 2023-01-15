@@ -1,6 +1,6 @@
 export interface Company {
   check: boolean;
-  id: number;
+  id: string;
   company: string;
 
   address: string;

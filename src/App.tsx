@@ -8,7 +8,7 @@ import FormCompany from './components/FormCompany';
 import { RootState } from './store';
 
 function App() {
-  const [firmIds, setFirmIds] = useState<number[]>([]);
+  const [firmIds, setFirmIds] = useState<string[]>([]);
   const { employees } = useSelector((state: RootState) => state.employees);
   return (
     <>

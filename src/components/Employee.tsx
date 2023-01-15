@@ -1,24 +1,22 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useAppDispatch } from '../store';
 import EmployeeRow from './EmployeeRow';
 import { Employee as IEmployee } from '../features/employee/types/state';
-import {
-  removeCompaniesEmployees,
-  removeSomeCompanyEmployees,
-} from '../features/employee/employeeSlice';
+import { removeSomeCompanyEmployees } from '../features/employee/employeeSlice';
 
 const Employee = ({
   firmIds,
   setFirmIds,
   employees,
 }: {
-  firmIds: Array<number>;
-  setFirmIds: Dispatch<SetStateAction<Array<number>>>;
+  firmIds: Array<string>;
+  setFirmIds: Dispatch<SetStateAction<Array<string>>>;
   employees: IEmployee[];
 }) => {
   const sortEmployees = employees.filter((employee: IEmployee) =>
     firmIds.includes(employee.companyId)
   );
+
   const employeesIds = sortEmployees.map((emp) => emp.id);
   const [restartChoose, setRestartChoose] = useState(false);
   const [notAllChoose, setNotAllChoose] = useState(true);

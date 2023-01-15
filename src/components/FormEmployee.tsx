@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { addEmployee } from '../features/employee/employeeSlice';
+import { Employee } from '../features/employee/types/state';
 import { RootState, useAppDispatch } from '../store';
 
 const FormEmployee = ({
@@ -9,7 +10,7 @@ const FormEmployee = ({
   addForm,
   setAddForm,
 }: {
-  companyIdOne: number;
+  companyIdOne: string;
   addForm: boolean;
   setAddForm: (callback: (addForm: boolean) => boolean) => void;
 }) => {
@@ -29,12 +30,21 @@ const FormEmployee = ({
   const handleChangeJob = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setJob(e.target.value);
   };
+  function uniqueId(len: number, employees: Employee[]): number {
+    const employeesIds = employees.map((employee) => employee.id);
+    if (!employeesIds.includes(len)) {
+      return len;
+    } else {
+      len += 1;
+      return uniqueId(len, employees);
+    }
+  }
   const handleAddEmployee = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const newId = uniqueId(employees.length, employees);
     dispatch(
       addEmployee({
-        id: employees.length,
+        id: newId,
         surname,
         name,
         job,
@@ -46,7 +56,6 @@ const FormEmployee = ({
     setSurname('');
     setName('');
     setJob('');
-    console.log(companyIdOne, 'hhhhh');
   };
 
   return (

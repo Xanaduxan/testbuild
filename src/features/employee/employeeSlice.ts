@@ -9,7 +9,7 @@ const initialState: State = {
       surname: 'Савельев',
       name: 'Петр',
       job: 'директор',
-      companyId: 0,
+      companyId: 'OOO Агат',
     },
     {
       check: false,
@@ -17,7 +17,7 @@ const initialState: State = {
       surname: 'Петров',
       name: 'Иван',
       job: 'директор',
-      companyId: 1,
+      companyId: 'ООО Сапфир',
     },
     {
       check: false,
@@ -25,7 +25,7 @@ const initialState: State = {
       surname: 'Петров',
       name: 'Иван',
       job: 'дворник',
-      companyId: 2,
+      companyId: 'ООО Агат',
     },
     {
       check: false,
@@ -33,7 +33,7 @@ const initialState: State = {
       surname: 'Макаров',
       name: 'Иван',
       job: 'директор',
-      companyId: 2,
+      companyId: 'ООО Алмаз',
     },
     {
       check: false,
@@ -41,7 +41,7 @@ const initialState: State = {
       surname: 'Иванов',
       name: 'Иван',
       job: 'директор',
-      companyId: 2,
+      companyId: 'ООО Стекляшка',
     },
     {
       check: false,
@@ -49,7 +49,7 @@ const initialState: State = {
       surname: 'Ульянов',
       name: 'Иван',
       job: 'директор',
-      companyId: 2,
+      companyId: '',
     },
   ],
 };

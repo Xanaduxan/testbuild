@@ -4,7 +4,7 @@ export interface Employee {
   surname: string;
   name: string;
   job: string;
-  companyId: number;
+  companyId: string;
 }
 
 export interface State {

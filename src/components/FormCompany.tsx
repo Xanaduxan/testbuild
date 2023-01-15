@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store';
 import { addCompany } from '../features/company/companySlice';
+import { Company } from '../features/company/types/state';
 
 const FormCompany = () => {
   const [company, setCompany] = useState('');
@@ -18,12 +19,13 @@ const FormCompany = () => {
   ): void => {
     setAddress(e.target.value);
   };
+
   const handleAddCompany = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     dispatch(
       addCompany({
-        id: companies.length,
+        id: company,
         company,
         address,
       })
