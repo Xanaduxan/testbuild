@@ -54,7 +54,7 @@ const Company = ({
             )}
           </th>
           <th>
-            <button onClick={deleteSomeCompanies}>Удалить</button>
+            <button onClick={deleteSomeCompanies}>Удалить выбранное</button>
           </th>
         </tr>
       </thead>

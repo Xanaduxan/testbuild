@@ -21,12 +21,13 @@ const Employee = ({
   );
   const employeesIds = sortEmployees.map((emp) => emp.id);
   const [restartChoose, setRestartChoose] = useState(false);
-
+  const [notAllChoose, setNotAllChoose] = useState(true);
   const [choose, setChoose] = useState(false);
   const [worker, setWorker] = useState<number[]>([]);
   const dispatch = useAppDispatch();
   const selectAllEmployees = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChoose((prev) => !prev);
+    setNotAllChoose((prev) => !prev);
   };
   const deleteAllEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeSomeCompanyEmployees(employeesIds));
@@ -58,7 +59,11 @@ const Employee = ({
                 {choose && (
                   <button onClick={deleteAllEmployees}>Удалить всех</button>
                 )}
-                <button onClick={deleteSomeEmployees}>Удалить</button>
+                {notAllChoose && (
+                  <button onClick={deleteSomeEmployees}>
+                    Удалить выбранное
+                  </button>
+                )}
               </th>
             </tr>
           </thead>
