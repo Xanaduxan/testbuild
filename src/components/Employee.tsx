@@ -21,7 +21,7 @@ const Employee = ({
   const [restartChoose, setRestartChoose] = useState(false);
   const [notAllChoose, setNotAllChoose] = useState(true);
   const [choose, setChoose] = useState(false);
-  const [worker, setWorker] = useState<string[]>([]);
+  const [workers, setWorkers] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const selectAllEmployees = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChoose((prev) => !prev);
@@ -30,11 +30,13 @@ const Employee = ({
   const deleteAllEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(removeSomeCompanyEmployees(employeesIds));
     setRestartChoose((prev) => !prev);
+    setNotAllChoose(() => true);
   };
   const deleteSomeEmployees = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(removeSomeCompanyEmployees(worker));
-    setWorker(() => []);
+    dispatch(removeSomeCompanyEmployees(workers));
+    setWorkers(() => []);
     setRestartChoose((prev) => !prev);
+    setNotAllChoose(() => true);
   };
 
   return (
@@ -60,7 +62,7 @@ const Employee = ({
                 )}
                 {notAllChoose && (
                   <button onClick={deleteSomeEmployees}>
-                    Удалить выбранное
+                    Удалить выбранных сотрудников
                   </button>
                 )}
               </th>
@@ -72,8 +74,8 @@ const Employee = ({
                 employee={employee}
                 choose={choose}
                 setChoose={setChoose}
-                worker={worker}
-                setWorker={setWorker}
+                workers={workers}
+                setWorkers={setWorkers}
                 restartChoose={restartChoose}
                 setRestartChoose={setRestartChoose}
               />

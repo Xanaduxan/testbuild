@@ -11,16 +11,16 @@ const EmployeeRow = ({
   employee,
   choose,
   setChoose,
-  worker,
-  setWorker,
+  workers,
+  setWorkers,
   restartChoose,
   setRestartChoose,
 }: {
   employee: Employee;
   choose: boolean;
   setChoose: (callback: (chosen: boolean) => boolean) => void;
-  worker: Array<string>;
-  setWorker: Dispatch<SetStateAction<Array<string>>>;
+  workers: Array<string>;
+  setWorkers: Dispatch<SetStateAction<Array<string>>>;
   restartChoose: boolean;
   setRestartChoose: (callback: (chosen: boolean) => boolean) => void;
 }) => {
@@ -41,7 +41,7 @@ const EmployeeRow = ({
   const selectOneEmployee = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChosenEmployee((prevChose) => !prevChose);
     setShowEmployee((prev) => !prev);
-    setWorker((prev) =>
+    setWorkers((prev) =>
       prev.includes(employee.id)
         ? prev.filter((ind) => ind !== employee.id)
         : [...prev, employee.id]

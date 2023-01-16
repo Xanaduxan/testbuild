@@ -4,31 +4,26 @@ import { State } from './types/state';
 const initialState: State = {
   companies: [
     {
-      check: false,
       id: 'ООО Бриллиант',
       company: 'ООО Бриллиант',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
-      check: false,
       id: 'ООО Алмаз',
       company: 'ООО Алмаз',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
-      check: false,
       id: 'ООО Сапфир',
       company: 'ООО Сапфир',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
-      check: false,
       id: 'ООО Агат',
       company: 'ООО Агат',
       address: 'г. Москва, ул. Ленина, д. 1',
     },
     {
-      check: false,
       id: 'ООО Стекляшка',
       company: 'ООО Стекляшка',
       address: 'г. Москва, ул. Ленина, д. 1',

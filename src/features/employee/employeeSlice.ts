@@ -4,7 +4,6 @@ import { State } from './types/state';
 const initialState: State = {
   employees: [
     {
-      check: false,
       id: 'СавельевПетр',
       surname: 'Савельев',
       name: 'Петр',
@@ -12,7 +11,6 @@ const initialState: State = {
       companyId: 'OOO Агат',
     },
     {
-      check: false,
       id: 'СидоровИван',
       surname: 'Сидоров',
       name: 'Иван',
@@ -20,7 +18,6 @@ const initialState: State = {
       companyId: 'ООО Сапфир',
     },
     {
-      check: false,
       id: 'ПетровИван',
       surname: 'Петров',
       name: 'Иван',
@@ -28,7 +25,6 @@ const initialState: State = {
       companyId: 'ООО Агат',
     },
     {
-      check: false,
       id: 'МакаровИван',
       surname: 'Макаров',
       name: 'Иван',
@@ -36,7 +32,6 @@ const initialState: State = {
       companyId: 'ООО Алмаз',
     },
     {
-      check: false,
       id: 'ИвановИван',
       surname: 'Иванов',
       name: 'Иван',
@@ -44,7 +39,6 @@ const initialState: State = {
       companyId: 'ООО Стекляшка',
     },
     {
-      check: false,
       id: 'УльяновИван',
       surname: 'Ульянов',
       name: 'Иван',
@@ -52,7 +46,6 @@ const initialState: State = {
       companyId: 'ООО Бриллиант',
     },
     {
-      check: false,
       id: 'БаранкинСтепан',
       surname: 'Баранкин',
       name: 'Степан',

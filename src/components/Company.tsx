@@ -62,7 +62,9 @@ const Company = ({
           </th>
           <th>
             {notAllCompanySelected && (
-              <button onClick={deleteSomeCompanies}>Удалить выбранное</button>
+              <button onClick={deleteSomeCompanies}>
+                Удалить выбранные компании
+              </button>
             )}
           </th>
         </tr>
