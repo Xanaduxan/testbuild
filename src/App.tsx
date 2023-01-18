@@ -15,16 +15,21 @@ function App() {
       <h1>Список сотрудников</h1>
       <FormCompany />
       <div className="table-container">
-        <Company
-          firmIds={firmIds}
-          setFirmIds={setFirmIds}
-          employees={employees}
-        />
-        <Employee
-          firmIds={firmIds}
-          setFirmIds={setFirmIds}
-          employees={employees}
-        />
+        <div>
+          {' '}
+          <Company
+            firmIds={firmIds}
+            setFirmIds={setFirmIds}
+            employees={employees}
+          />
+        </div>
+        <div>
+          <Employee
+            firmIds={firmIds}
+            setFirmIds={setFirmIds}
+            employees={employees}
+          />
+        </div>
       </div>
     </>
   );
