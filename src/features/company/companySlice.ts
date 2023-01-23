@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../store';
 import { State } from './types/state';
 
 const initialState: State = {
@@ -63,6 +64,7 @@ const companySlice = createSlice({
     },
   },
 });
+export const selectCompanies = (state: RootState) => state.companies.companies;
 
 export default companySlice.reducer;
 export const { addCompany, removeCompany, updateCompany, removeSomeCompanies } =

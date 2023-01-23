@@ -1,7 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import employeeSlice, {
-  removeAllCompanyEmployees,
-} from '../features/employee/employeeSlice';
+import { removeAllCompanyEmployees } from '../features/employee/employeeSlice';
 import { removeCompany, updateCompany } from '../features/company/companySlice';
 
 import { useAppDispatch } from '../store';
@@ -9,25 +7,24 @@ import FormEmployee from './FormEmployee';
 import { Company } from '../features/company/types/state';
 import { Employee } from '../features/employee/types/state';
 
-const CompanyRow = ({
-  company,
-  chose,
-  setChose,
-  firmIds,
-  setFirmIds,
-  employees,
-  restartChooseCompany,
-  setRestartChooseCompany,
-}: {
+type Props = {
   company: Company;
   chose: boolean;
   setChose: (callback: (chosen: boolean) => boolean) => void;
-  firmIds: Array<string>;
   setFirmIds: Dispatch<SetStateAction<Array<string>>>;
   employees: Employee[];
   restartChooseCompany: boolean;
   setRestartChooseCompany: (callback: (chosen: boolean) => boolean) => void;
-}) => {
+};
+const CompanyRow = ({
+  company,
+  chose,
+  setChose,
+  setFirmIds,
+  employees,
+  restartChooseCompany,
+  setRestartChooseCompany,
+}: Props) => {
   const [show, setShow] = useState(false);
   const [addForm, setAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -56,8 +53,8 @@ const CompanyRow = ({
   );
 
   const dispatch = useAppDispatch();
-  const selectOneCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChosen((prevChose) => !prevChose);
+  const selectOneCompany = () => {
+    setChosen((prev) => !prev);
     setShow((prev) => !prev);
 
     setFirmIds((prev) =>
@@ -67,19 +64,24 @@ const CompanyRow = ({
     );
     setRestartChooseCompany(() => false);
   };
-  const deleteCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const deleteCompany = () => {
     dispatch(removeCompany(company.id));
     dispatch(removeAllCompanyEmployees(company.id));
     setChosen((prev) => !prev);
     setShow((prev) => !prev);
   };
 
-  const editCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(updateCompany({ id: company.id, address, company: companyName }));
+  const editCompany = () => {
+    if (address !== company.address || company.company !== companyName) {
+      dispatch(
+        updateCompany({ id: company.id, address, company: companyName })
+      );
+    }
+
     setEdit((prev) => !prev);
   };
 
-  const addOneEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const addOneEmployee = () => {
     setAddForm((prev) => !prev);
   };
 
@@ -133,11 +135,7 @@ const CompanyRow = ({
       </td>
       <td>
         {addForm && (
-          <FormEmployee
-            companyIdOne={company.id}
-            addForm={addForm}
-            setAddForm={setAddForm}
-          />
+          <FormEmployee companyIdOne={company.id} setAddForm={setAddForm} />
         )}
       </td>
     </tr>

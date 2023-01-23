@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import {
+  addEmployee,
+  selectedEmployees,
+} from '../features/employee/employeeSlice';
+import { useAppDispatch } from '../store';
 
-import { addEmployee } from '../features/employee/employeeSlice';
-import { Employee } from '../features/employee/types/state';
-import { RootState, useAppDispatch } from '../store';
-
-const FormEmployee = ({
-  companyIdOne,
-  addForm,
-  setAddForm,
-}: {
+type Props = {
   companyIdOne: string;
-  addForm: boolean;
   setAddForm: (callback: (addForm: boolean) => boolean) => void;
-}) => {
+};
+
+const FormEmployee = ({ companyIdOne, setAddForm }: Props) => {
   const [surname, setSurname] = useState('');
   const [name, setName] = useState('');
   const [job, setJob] = useState('');
   const dispatch = useAppDispatch();
-  const { employees } = useSelector((state: RootState) => state.employees);
+  const employees = useSelector(selectedEmployees);
   const handleChangeSurname = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {

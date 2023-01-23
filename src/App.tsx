@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
 import Company from './components/Company';
-import Employee from './components/Employee';
-
+import EmployeeList from './components/EmployeeList';
 import FormCompany from './components/FormCompany';
-import { RootState } from './store';
+import { selectedEmployees } from './features/employee/employeeSlice';
 
 function App() {
   const [firmIds, setFirmIds] = useState<string[]>([]);
-  const { employees } = useSelector((state: RootState) => state.employees);
+  const employees = useSelector(selectedEmployees);
   return (
     <>
       <h1>Список сотрудников</h1>
@@ -24,11 +23,7 @@ function App() {
           />
         </div>
         <div>
-          <Employee
-            firmIds={firmIds}
-            setFirmIds={setFirmIds}
-            employees={employees}
-          />
+          <EmployeeList firmIds={firmIds} employees={employees} />
         </div>
       </div>
     </>

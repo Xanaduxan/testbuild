@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store';
-import { addCompany } from '../features/company/companySlice';
-import { Company } from '../features/company/types/state';
+import { addCompany, selectCompanies } from '../features/company/companySlice';
 
 const FormCompany = () => {
   const [company, setCompany] = useState('');
   const [address, setAddress] = useState('');
   const dispatch = useAppDispatch();
-  const { companies } = useSelector((state: RootState) => state.companies);
+  const companies = useSelector(selectCompanies);
   const handleChangeCompany = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {

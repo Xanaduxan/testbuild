@@ -7,23 +7,22 @@ import {
 import { Employee } from '../features/employee/types/state';
 import { useAppDispatch } from '../store';
 
+type Props = {
+  employee: Employee;
+  choose: boolean;
+  setChoose: Dispatch<SetStateAction<boolean>>;
+  setWorkers: Dispatch<SetStateAction<Array<string>>>;
+  restartChoose: boolean;
+  setRestartChoose: (callback: (chosen: boolean) => boolean) => void;
+};
 const EmployeeRow = ({
   employee,
   choose,
   setChoose,
-  workers,
   setWorkers,
   restartChoose,
   setRestartChoose,
-}: {
-  employee: Employee;
-  choose: boolean;
-  setChoose: (callback: (chosen: boolean) => boolean) => void;
-  workers: Array<string>;
-  setWorkers: Dispatch<SetStateAction<Array<string>>>;
-  restartChoose: boolean;
-  setRestartChoose: (callback: (chosen: boolean) => boolean) => void;
-}) => {
+}: Props) => {
   const [chosenEmployee, setChosenEmployee] = useState(false);
   const [showEmployee, setShowEmployee] = useState(false);
   const [showEditEmployee, setShowEditEmployee] = useState(false);
@@ -32,13 +31,13 @@ const EmployeeRow = ({
   const [employeeJob, setEmployeeJob] = useState(employee.job);
   useEffect(() => {
     if (restartChoose) {
-      setChosenEmployee(() => false);
-      setChoose(() => false);
-      setShowEmployee(() => false);
+      setChosenEmployee(false);
+      setChoose(false);
+      setShowEmployee(false);
     }
   }, [restartChoose]);
   const dispatch = useAppDispatch();
-  const selectOneEmployee = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const selectOneEmployee = () => {
     setChosenEmployee((prevChose) => !prevChose);
     setShowEmployee((prev) => !prev);
     setWorkers((prev) =>
@@ -59,53 +58,29 @@ const EmployeeRow = ({
   const handleChangeJob = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmployeeJob(e.target.value);
   };
-  const editEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const editEmployee = () => {
     setShowEditEmployee((prev) => !prev);
-    if (employeeSurname) {
-      dispatch(
-        updateEmployee({
-          id: employee.id,
-          name: employee.name,
-          surname: employeeSurname,
-          job: employee.job,
-        })
-      );
-    }
-    if (employeeName) {
+    if (
+      employee.name !== employeeName ||
+      employee.surname !== employeeSurname ||
+      employee.job !== employeeJob
+    ) {
       dispatch(
         updateEmployee({
           id: employee.id,
           name: employeeName,
-          surname: employee.surname,
-          job: employee.job,
-        })
-      );
-    }
-    if (employeeJob) {
-      dispatch(
-        updateEmployee({
-          id: employee.id,
-          name: employee.name,
-          surname: employee.surname,
+          surname: employeeSurname,
           job: employeeJob,
         })
       );
-    } else {
-      dispatch(
-        updateEmployee({
-          id: employee.id,
-          name: employee.name,
-          surname: employee.surname,
-          job: employee.job,
-        })
-      );
     }
+
     setEmployeeName(employee.name);
     setEmployeeSurname(employee.surname);
     setEmployeeJob(employee.job);
   };
 
-  const deleteEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const deleteEmployee = () => {
     dispatch(removeEmployee(employee.id));
     setChosenEmployee((prev) => !prev);
     setShowEmployee((prev) => !prev);

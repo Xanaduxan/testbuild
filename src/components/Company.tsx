@@ -1,42 +1,42 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { removeSomeCompanies } from '../features/company/companySlice';
+import {
+  removeSomeCompanies,
+  selectCompanies,
+} from '../features/company/companySlice';
 import { removeCompaniesEmployees } from '../features/employee/employeeSlice';
 import { Employee } from '../features/employee/types/state';
 import { RootState, useAppDispatch } from '../store';
 import CompanyRow from './CompanyRow';
 
-const Company = ({
-  firmIds,
-  setFirmIds,
-  employees,
-}: {
+type Props = {
   firmIds: Array<string>;
   setFirmIds: Dispatch<SetStateAction<Array<string>>>;
   employees: Employee[];
-}) => {
-  const { companies } = useSelector((state: RootState) => state.companies);
+};
+const Company = ({ firmIds, setFirmIds, employees }: Props) => {
+  const companies = useSelector(selectCompanies);
   const companiesIds = companies.map((comp) => comp.id);
   const [chose, setChose] = useState(false);
   const [notAllCompanySelected, setNotAllCompanySelected] = useState(true);
   const [restartChooseCompany, setRestartChooseCompany] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const dispatch = useAppDispatch();
-  const selectAllCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setChose((prevChose) => !prevChose);
+  const selectAllCompany = () => {
+    setChose((prev) => !prev);
     setShowDelete((prev) => !prev);
     setNotAllCompanySelected((prev) => !prev);
   };
-  const deleteAllCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const deleteAllCompanies = () => {
     dispatch(removeSomeCompanies(companiesIds));
     dispatch(removeCompaniesEmployees(companiesIds));
     setRestartChooseCompany((prev) => !prev);
-    setChose((prevChose) => !prevChose);
+    setChose((prev) => !prev);
   };
-  const deleteSomeCompanies = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const deleteSomeCompanies = () => {
     dispatch(removeSomeCompanies(firmIds));
     dispatch(removeCompaniesEmployees(firmIds));
-    setFirmIds(() => []);
+    setFirmIds([]);
     setRestartChooseCompany((prev) => !prev);
   };
 
@@ -75,7 +75,6 @@ const Company = ({
             chose={chose}
             setChose={setChose}
             company={company}
-            firmIds={firmIds}
             setFirmIds={setFirmIds}
             employees={employees}
             restartChooseCompany={restartChooseCompany}

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../store';
 import { State } from './types/state';
 
 const initialState: State = {
@@ -94,9 +95,7 @@ const employeeSlice = createSlice({
         employee.id === action.payload.id
           ? {
               ...employee,
-              surname: action.payload.surname,
-              name: action.payload.name,
-              job: action.payload.job,
+              ...action.payload,
             }
           : employee
       );
@@ -104,6 +103,8 @@ const employeeSlice = createSlice({
   },
 });
 
+export const selectedEmployees = (state: RootState) =>
+  state.employees.employees;
 export default employeeSlice.reducer;
 export const {
   initEmployees,
