@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
-import Company from './components/Company';
+import CompanyList from './components/CompanyList';
+
 import EmployeeList from './components/EmployeeList';
-import FormCompany from './components/FormCompany';
-import { selectedEmployees } from './features/employee/employeeSlice';
+
+import { selectEmployees } from './features/employee/employeeSlice';
+import CompanyForm from './components/CompanyForm';
 
 function App() {
   const [firmIds, setFirmIds] = useState<string[]>([]);
-  const employees = useSelector(selectedEmployees);
+  const employees = useSelector(selectEmployees);
   return (
     <>
       <h1>Список сотрудников</h1>
-      <FormCompany />
+      <CompanyForm />
       <div className="table-container">
         <div>
           {' '}
-          <Company
+          <CompanyList
             firmIds={firmIds}
             setFirmIds={setFirmIds}
             employees={employees}

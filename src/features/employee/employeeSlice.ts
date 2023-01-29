@@ -2,96 +2,86 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { State } from './types/state';
 
-const initialState: State = {
-  employees: [
-    {
-      id: 'СавельевПетр',
-      surname: 'Савельев',
-      name: 'Петр',
-      job: 'директор',
-      companyId: 'OOO Агат',
-    },
-    {
-      id: 'СидоровИван',
-      surname: 'Сидоров',
-      name: 'Иван',
-      job: 'директор',
-      companyId: 'ООО Сапфир',
-    },
-    {
-      id: 'ПетровИван',
-      surname: 'Петров',
-      name: 'Иван',
-      job: 'дворник',
-      companyId: 'ООО Агат',
-    },
-    {
-      id: 'МакаровИван',
-      surname: 'Макаров',
-      name: 'Иван',
-      job: 'директор',
-      companyId: 'ООО Алмаз',
-    },
-    {
-      id: 'ИвановИван',
-      surname: 'Иванов',
-      name: 'Иван',
-      job: 'директор',
-      companyId: 'ООО Стекляшка',
-    },
-    {
-      id: 'УльяновИван',
-      surname: 'Ульянов',
-      name: 'Иван',
-      job: 'директор',
-      companyId: 'ООО Бриллиант',
-    },
-    {
-      id: 'БаранкинСтепан',
-      surname: 'Баранкин',
-      name: 'Степан',
-      job: 'директор',
-      companyId: 'ООО Алмаз',
-    },
-  ],
-};
+const initialState: State = [
+  {
+    id: 'СавельевПетр',
+    surname: 'Савельев',
+    name: 'Петр',
+    job: 'директор',
+    companyId: 'OOO Агат',
+  },
+  {
+    id: 'СидоровИван',
+    surname: 'Сидоров',
+    name: 'Иван',
+    job: 'директор',
+    companyId: 'ООО Сапфир',
+  },
+  {
+    id: 'ПетровИван',
+    surname: 'Петров',
+    name: 'Иван',
+    job: 'дворник',
+    companyId: 'ООО Агат',
+  },
+  {
+    id: 'МакаровИван',
+    surname: 'Макаров',
+    name: 'Иван',
+    job: 'директор',
+    companyId: 'ООО Алмаз',
+  },
+  {
+    id: 'ИвановИван',
+    surname: 'Иванов',
+    name: 'Иван',
+    job: 'директор',
+    companyId: 'ООО Стекляшка',
+  },
+  {
+    id: 'УльяновИван',
+    surname: 'Ульянов',
+    name: 'Иван',
+    job: 'директор',
+    companyId: 'ООО Бриллиант',
+  },
+  {
+    id: 'БаранкинСтепан',
+    surname: 'Баранкин',
+    name: 'Степан',
+    job: 'директор',
+    companyId: 'ООО Алмаз',
+  },
+];
 
 const employeeSlice = createSlice({
   name: 'employees',
   initialState,
   reducers: {
     initEmployees: (state, action) => {
-      state.employees = state.employees.filter(
-        (employee) => employee.companyId === action.payload
-      );
+      state = state.filter((employee) => employee.companyId === action.payload);
     },
-    addEmployee: (state, action) => {
-      state.employees.push(action.payload);
+    addEmployee: (employees, action) => {
+      employees.push(action.payload);
     },
 
     removeEmployee: (state, action) => {
-      state.employees = state.employees.filter(
-        (employee) => employee.id !== action.payload
-      );
+      return state.filter((employee) => employee.id !== action.payload);
     },
     removeAllCompanyEmployees: (state, action) => {
-      state.employees = state.employees.filter(
-        (employee) => employee.companyId !== action.payload
-      );
+      return state.filter((employee) => employee.companyId !== action.payload);
     },
     removeSomeCompanyEmployees: (state, action) => {
-      state.employees = state.employees.filter(
-        (employee) => !action.payload.includes(employee.id)
-      );
+      return state.filter((employee) => !action.payload.includes(employee.id));
     },
-    removeCompaniesEmployees: (state, action) => {
-      state.employees = state.employees.filter(
+    removeEmployeesByCompanyIds: (state, action) => {
+      return state.filter(
         (employee) => !action.payload.includes(employee.companyId)
       );
     },
 
     updateEmployee: (state, action) => {
-      state.employees = state.employees.map((employee) =>
+      return state.map((employee) =>
         employee.id === action.payload.id
           ? {
               ...employee,
@@ -103,13 +93,12 @@ const employeeSlice = createSlice({
   },
 });
 
-export const selectedEmployees = (state: RootState) =>
-  state.employees.employees;
+export const selectEmployees = (state: RootState) => state.employees;
 export default employeeSlice.reducer;
 export const {
   initEmployees,
   addEmployee,
-  removeCompaniesEmployees,
+  removeEmployeesByCompanyIds,
   removeEmployee,
   removeSomeCompanyEmployees,
   removeAllCompanyEmployees,

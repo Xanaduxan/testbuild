@@ -1,9 +1,7 @@
 export interface Company {
   id: string;
-  company: string;
+  name: string;
   address: string;
 }
 
-export interface State {
-  companies: Company[];
-}
+export type State = Company[];

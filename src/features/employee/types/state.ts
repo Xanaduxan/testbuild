@@ -6,6 +6,4 @@ export interface Employee {
   companyId: string;
 }
 
-export interface State {
-  employees: Employee[];
-}
+export type State = Employee[];

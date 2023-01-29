@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-// import { removeCountCompany } from '../features/company/companySlice';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+
 import {
   removeEmployee,
   updateEmployee,
@@ -9,57 +9,26 @@ import { useAppDispatch } from '../store';
 
 type Props = {
   employee: Employee;
-  choose: boolean;
-  setChoose: Dispatch<SetStateAction<boolean>>;
+  workers: string[];
   setWorkers: Dispatch<SetStateAction<Array<string>>>;
-  restartChoose: boolean;
-  setRestartChoose: (callback: (chosen: boolean) => boolean) => void;
 };
-const EmployeeRow = ({
-  employee,
-  choose,
-  setChoose,
-  setWorkers,
-  restartChoose,
-  setRestartChoose,
-}: Props) => {
-  const [chosenEmployee, setChosenEmployee] = useState(false);
-  const [showEmployee, setShowEmployee] = useState(false);
-  const [showEditEmployee, setShowEditEmployee] = useState(false);
+const EmployeeRow = ({ employee, workers, setWorkers }: Props) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [employeeSurname, setEmployeeSurname] = useState(employee.surname);
   const [employeeName, setEmployeeName] = useState(employee.name);
   const [employeeJob, setEmployeeJob] = useState(employee.job);
-  useEffect(() => {
-    if (restartChoose) {
-      setChosenEmployee(false);
-      setChoose(false);
-      setShowEmployee(false);
-    }
-  }, [restartChoose]);
+
   const dispatch = useAppDispatch();
   const selectOneEmployee = () => {
-    setChosenEmployee((prevChose) => !prevChose);
-    setShowEmployee((prev) => !prev);
     setWorkers((prev) =>
       prev.includes(employee.id)
         ? prev.filter((ind) => ind !== employee.id)
         : [...prev, employee.id]
     );
-    setRestartChoose(() => false);
   };
-  const handleChangeSurname = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setEmployeeSurname(e.target.value);
-  };
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmployeeName(e.target.value);
-  };
-  const handleChangeJob = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmployeeJob(e.target.value);
-  };
-  const editEmployee = () => {
-    setShowEditEmployee((prev) => !prev);
+
+  const onSave = () => {
+    setIsEditing((prev) => !prev);
     if (
       employee.name !== employeeName ||
       employee.surname !== employeeSurname ||
@@ -82,28 +51,28 @@ const EmployeeRow = ({
 
   const deleteEmployee = () => {
     dispatch(removeEmployee(employee.id));
-    setChosenEmployee((prev) => !prev);
-    setShowEmployee((prev) => !prev);
-    setRestartChoose(() => false);
+    workers = workers.filter((worker) => worker === employee.id);
   };
 
   return (
     <tr
       key={employee.id}
-      className={chosenEmployee || choose ? 'selected' : ''}
+      className={workers.includes(employee.id) ? 'selected' : ''}
     >
       <td key={`${employee.id}input`}>
         <input
           type="checkbox"
-          checked={chosenEmployee || choose}
+          checked={workers.includes(employee.id)}
           onChange={selectOneEmployee}
         />
       </td>
       <td>
-        {showEditEmployee ? (
+        {isEditing ? (
           <input
             value={employeeSurname}
-            onChange={handleChangeSurname}
+            onChange={(e): void => {
+              setEmployeeSurname(e.target.value);
+            }}
             required
           />
         ) : (
@@ -111,29 +80,42 @@ const EmployeeRow = ({
         )}
       </td>
       <td>
-        {showEditEmployee ? (
-          <input value={employeeName} onChange={handleChangeName} required />
+        {isEditing ? (
+          <input
+            value={employeeName}
+            onChange={(e): void => {
+              setEmployeeName(e.target.value);
+            }}
+            required
+          />
         ) : (
           <>{employee.name}</>
         )}
       </td>
       <td>
-        {' '}
-        {showEditEmployee ? (
-          <input value={employeeJob} onChange={handleChangeJob} required />
+        {isEditing ? (
+          <input
+            value={employeeJob}
+            onChange={(e): void => {
+              setEmployeeJob(e.target.value);
+            }}
+            required
+          />
         ) : (
           <>{employee.job}</>
         )}
       </td>
       <td>
-        {' '}
-        {showEmployee && (
+        {workers.includes(employee.id) && (
           <>
             <button type="button" onClick={deleteEmployee}>
               Удалить
             </button>
-            <button type="button" onClick={editEmployee}>
-              {showEditEmployee ? 'Сохранить' : 'Редактировать'}
+            <button
+              type="button"
+              onClick={() => (!isEditing ? setIsEditing(true) : onSave())}
+            >
+              {isEditing ? 'Сохранить' : 'Редактировать'}
             </button>
           </>
         )}

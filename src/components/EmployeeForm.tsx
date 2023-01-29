@@ -2,49 +2,45 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   addEmployee,
-  selectedEmployees,
+  selectEmployees,
 } from '../features/employee/employeeSlice';
 import { useAppDispatch } from '../store';
 
 type Props = {
-  companyIdOne: string;
-  setAddForm: (callback: (addForm: boolean) => boolean) => void;
+  companyId: string;
+  setshowAddEmployeeForm: (
+    callback: (showAddEmployeeForm: boolean) => boolean
+  ) => void;
 };
 
-const FormEmployee = ({ companyIdOne, setAddForm }: Props) => {
+const EmployeeForm = ({ companyId, setshowAddEmployeeForm }: Props) => {
   const [surname, setSurname] = useState('');
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [job, setJob] = useState('');
   const dispatch = useAppDispatch();
-  const employees = useSelector(selectedEmployees);
+  const employees = useSelector(selectEmployees);
   const handleChangeSurname = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setSurname(e.target.value);
   };
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setName(e.target.value);
-  };
-  const handleChangeJob = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setJob(e.target.value);
-  };
 
   const handleAddEmployee = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newId = surname + name + employees.length;
+    const newId = surname + firstName + employees.length;
     dispatch(
       addEmployee({
         id: newId,
         surname,
-        name,
+        name: firstName,
         job,
-        companyId: companyIdOne,
+        companyId,
       })
     );
 
-    setAddForm((prev) => !prev);
+    setshowAddEmployeeForm((prev) => !prev);
     setSurname('');
-    setName('');
+    setFirstName('');
     setJob('');
   };
 
@@ -57,15 +53,19 @@ const FormEmployee = ({ companyIdOne, setAddForm }: Props) => {
         required
       />
       <input
-        value={name}
+        value={firstName}
         placeholder="Имя"
-        onChange={handleChangeName}
+        onChange={(e): void => {
+          setFirstName(e.target.value);
+        }}
         required
       />
       <input
         value={job}
         placeholder="Должность"
-        onChange={handleChangeJob}
+        onChange={(e): void => {
+          setJob(e.target.value);
+        }}
         required
       />
       <button type="submit">Добавить сотрудника</button>
@@ -73,4 +73,4 @@ const FormEmployee = ({ companyIdOne, setAddForm }: Props) => {
   );
 };
 
-export default FormEmployee;
+export default EmployeeForm;

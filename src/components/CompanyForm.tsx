@@ -1,51 +1,39 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../store';
+import { useAppDispatch } from '../store';
 import { addCompany, selectCompanies } from '../features/company/companySlice';
 
-const FormCompany = () => {
-  const [company, setCompany] = useState('');
+const CompanyForm = () => {
+  const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const dispatch = useAppDispatch();
   const companies = useSelector(selectCompanies);
-  const handleChangeCompany = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setCompany(e.target.value);
-  };
-  const handleChangeAddress = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setAddress(e.target.value);
-  };
 
   const handleAddCompany = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const idCompany = company + companies.length;
-    dispatch(
-      addCompany({
-        id: idCompany,
-        company,
-        address,
-      })
-    );
+    const id = name + companies.length;
+    dispatch(addCompany({ id, name, address }));
 
     setAddress('');
-    setCompany('');
+    setName('');
   };
 
   return (
     <form onSubmit={handleAddCompany}>
       <input
-        value={company}
+        value={name}
         placeholder="Компания"
-        onChange={handleChangeCompany}
+        onChange={(e): void => {
+          setName(e.target.value);
+        }}
         required
       />
       <input
         value={address}
         placeholder="Адрес"
-        onChange={handleChangeAddress}
+        onChange={(e): void => {
+          setAddress(e.target.value);
+        }}
         required
       />
       <button type="submit">Добавить компанию</button>
@@ -53,4 +41,4 @@ const FormCompany = () => {
   );
 };
 
-export default FormCompany;
+export default CompanyForm;

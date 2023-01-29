@@ -12,27 +12,20 @@ const EmployeeList = ({ firmIds, employees }: Props) => {
   const filteredEmployees = employees.filter((employee: IEmployee) =>
     firmIds.includes(employee.companyId)
   );
-
   const employeesIds = filteredEmployees.map((emp) => emp.id);
-  const [restartChoose, setRestartChoose] = useState(false);
-  const [notAllChoose, setNotAllChoose] = useState(true);
-  const [choose, setChoose] = useState(false);
   const [workers, setWorkers] = useState<string[]>([]);
+  const areAllEmployeesSelected =
+    workers.length > 0 && workers.length === filteredEmployees.length;
+  const showDeleteAllButton =
+    workers.length > 0 && workers.length === filteredEmployees.length;
   const dispatch = useAppDispatch();
   const selectAllEmployees = () => {
-    setChoose((prev) => !prev);
-    setNotAllChoose((prev) => !prev);
+    areAllEmployeesSelected ? setWorkers([]) : setWorkers(employeesIds);
   };
-  const deleteAllEmployees = () => {
-    dispatch(removeSomeCompanyEmployees(employeesIds));
-    setRestartChoose((prev) => !prev);
-    setNotAllChoose(() => true);
-  };
-  const deleteSomeEmployees = () => {
+
+  const deleteEmployees = () => {
     dispatch(removeSomeCompanyEmployees(workers));
     setWorkers(() => []);
-    setRestartChoose((prev) => !prev);
-    setNotAllChoose(() => true);
   };
 
   return (
@@ -45,7 +38,7 @@ const EmployeeList = ({ firmIds, employees }: Props) => {
                 Выделить все
                 <input
                   type="checkbox"
-                  checked={choose}
+                  checked={areAllEmployeesSelected}
                   onChange={selectAllEmployees}
                 />
               </th>
@@ -53,11 +46,11 @@ const EmployeeList = ({ firmIds, employees }: Props) => {
               <th>Имя</th>
               <th>Должность</th>
               <th>
-                {choose && (
-                  <button onClick={deleteAllEmployees}>Удалить всех</button>
+                {showDeleteAllButton && (
+                  <button onClick={deleteEmployees}>Удалить всех</button>
                 )}
-                {notAllChoose && (
-                  <button onClick={deleteSomeEmployees}>
+                {!areAllEmployeesSelected && (
+                  <button onClick={deleteEmployees}>
                     Удалить выбранных сотрудников
                   </button>
                 )}
@@ -68,11 +61,8 @@ const EmployeeList = ({ firmIds, employees }: Props) => {
             {filteredEmployees.map((employee: IEmployee) => (
               <EmployeeRow
                 employee={employee}
-                choose={choose}
-                setChoose={setChoose}
+                workers={workers}
                 setWorkers={setWorkers}
-                restartChoose={restartChoose}
-                setRestartChoose={setRestartChoose}
               />
             ))}
           </tbody>
