@@ -15,9 +15,9 @@ const EmployeeList = ({ firmIds, employees }: Props) => {
   const employeesIds = filteredEmployees.map((emp) => emp.id);
   const [workers, setWorkers] = useState<string[]>([]);
   const areAllEmployeesSelected =
-    workers.length > 0 && workers.length === filteredEmployees.length;
+    workers.length > 0 && workers.length === employeesIds.length;
   const showDeleteAllButton =
-    workers.length > 0 && workers.length === filteredEmployees.length;
+    workers.length > 0 && workers.length === employeesIds.length;
   const dispatch = useAppDispatch();
   const selectAllEmployees = () => {
     areAllEmployeesSelected ? setWorkers([]) : setWorkers(employeesIds);
